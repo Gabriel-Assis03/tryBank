@@ -25,27 +25,33 @@ public class TrybankLib
     public void RegisterAccount(int number, int agency, int pass)
     {   
         for (int index = 0; index < registeredAccounts; index++)
-            {
-                if (Bank[index, 0] == number)
-                {
-                    throw new ArgumentException("A conta já está sendo usada!");
-                }
-                else if (Bank[index, 1] == agency)
-                {
-                    throw new ArgumentException("A conta já está sendo usada!");
-                }
-            }
-            Bank[registeredAccounts, 0] = number;
-            Bank[registeredAccounts, 1] = agency;
-            Bank[registeredAccounts, 2] = pass;
-            Bank[registeredAccounts, 3] = 0;
-            registeredAccounts++;
+        {
+            if (Bank[index, 0] == number && Bank[index, 1] == agency)
+                throw new ArgumentException("A conta já está sendo usada!");
+                    
+        }
+        Bank[registeredAccounts, 0] = number;
+        Bank[registeredAccounts, 1] = agency;
+        Bank[registeredAccounts, 2] = pass;
+        Bank[registeredAccounts, 3] = 0;
+        registeredAccounts++;
     }
 
     // 2. Construa a funcionalidade de fazer Login
     public void Login(int number, int agency, int pass)
     {
-        throw new NotImplementedException();
+        if (Logged) throw new AccessViolationException("Usuário já está logado");
+        for (int index = 0; index < registeredAccounts; index++)
+        {
+            if (Bank[index, 0] == number && Bank[index, 1] == agency)
+                if (Bank[index, 2] == pass)
+                   loggedUser = index;
+                else
+                    throw new ArgumentException("Senha incorreta");
+            else
+                throw new ArgumentException("Agência + Conta não encontrada");
+
+        }
     }
 
     // 3. Construa a funcionalidade de fazer Logout
