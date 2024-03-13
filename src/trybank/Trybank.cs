@@ -45,7 +45,10 @@ public class TrybankLib
         {
             if (Bank[index, 0] == number && Bank[index, 1] == agency)
                 if (Bank[index, 2] == pass)
-                   loggedUser = index;
+                {
+                    loggedUser = index;
+                    Logged = true;
+                }
                 else
                     throw new ArgumentException("Senha incorreta");
             else
