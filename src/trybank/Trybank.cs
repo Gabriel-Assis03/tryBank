@@ -61,11 +61,8 @@ public class TrybankLib
     public void Logout()
     {
         if (!Logged) throw new AccessViolationException("Usuário não está logado");
-        else
-        {   
-            Logged = false;
-            loggedUser = -99;
-        }
+        Logged = false;
+        loggedUser = -99;
     }
 
     // 4. Construa a funcionalidade de checar o saldo
@@ -79,13 +76,15 @@ public class TrybankLib
     public void Deposit(int value)
     {
         if (!Logged) throw new AccessViolationException("Usuário não está logado");
-        else Bank[loggedUser, 3] =+ value;
+        Bank[loggedUser, 3] =+ value;
     }
 
     // 6. Construa a funcionalidade de sacar dinheiro
     public void Withdraw(int value)
     {
-        throw new NotImplementedException();
+        if (!Logged) throw new AccessViolationException("Usuário não está logado");
+        if (Bank[loggedUser, 3] < value) throw new InvalidOperationException("Saldo insuficiente");
+        Bank[loggedUser, 3] =- value;
     }
 
     // 7. Construa a funcionalidade de transferir dinheiro entre contas
