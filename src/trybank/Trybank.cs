@@ -84,7 +84,7 @@ public class TrybankLib
     {
         if (!Logged) throw new AccessViolationException("Usuário não está logado");
         if (Bank[loggedUser, 3] < value) throw new InvalidOperationException("Saldo insuficiente");
-        Bank[loggedUser, 3] =- value;
+        Bank[loggedUser, 3] = Bank[loggedUser, 3] - value;
     }
 
     // 7. Construa a funcionalidade de transferir dinheiro entre contas
