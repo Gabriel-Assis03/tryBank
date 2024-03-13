@@ -76,7 +76,7 @@ public class TrybankLib
     public void Deposit(int value)
     {
         if (!Logged) throw new AccessViolationException("Usuário não está logado");
-        Bank[loggedUser, 3] =+ value;
+        Bank[loggedUser, 3] = Bank[loggedUser, 3] + value;
     }
 
     // 6. Construa a funcionalidade de sacar dinheiro
@@ -90,7 +90,14 @@ public class TrybankLib
     // 7. Construa a funcionalidade de transferir dinheiro entre contas
     public void Transfer(int destinationNumber, int destinationAgency, int value)
     {
-        throw new NotImplementedException();
+        if (!Logged) throw new AccessViolationException("Usuário não está logado");
+        for (int index = 0; index < registeredAccounts; index++)
+        {
+            if (Bank[index, 0] == destinationNumber && Bank[index, 1] == destinationAgency)
+                Bank[index, 3] = Bank[index, 3] + value;
+        }
+        Withdraw(value);
+
     }
 
    
